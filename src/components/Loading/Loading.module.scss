@@ -1,0 +1,26 @@
+$scale: 4;
+
+.loader,
+.loader:before,
+.loader:after{
+  width: calc($scale * 35px);
+  aspect-ratio: 1;
+  box-shadow: 0 0 0 calc($scale * 2px) inset $mauve;
+  position: relative;
+  animation: l6 1.5s infinite 0.5s;
+}
+.loader:before,
+.loader:after{
+  content: "";
+  position: absolute;
+  left: calc(100% + 5px);
+  animation-delay: 1s;
+}
+.loader:after{
+  left: calc($scale * -40px);
+  animation-delay: 0s;
+}
+@keyframes l6 {
+  0%,55%,100%  {border-radius:0  }
+  20%,30%      {border-radius:50%}
+}

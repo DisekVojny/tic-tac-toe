@@ -6,15 +6,16 @@ import Square from "./components/Square";
 import Confetti from "./components/Confetti";
 
 import { useGameState, GameState } from "./api";
-
+import Loading from "./components/Loading/Loading";
 export default function App() {
   const [ gameState ] = useGameState();
 
   return (
     <>
-      {gameState === GameState.MENU && <></>}
+      <Loading></Loading>
+      {/* {gameState === GameState.MENU && <></>}
       {gameState === GameState.QUEUE && <></>}
-      {gameState === GameState.PLAYING && <></>}
+      {gameState === GameState.PLAYING && <></>} */}
     </>
   );
 }
