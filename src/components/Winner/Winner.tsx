@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Winner.module.scss"
-import { joinQueue } from "../../api";
+import { goToMenu, joinQueue } from "../../api";
 
 
 // 1 WIN
@@ -70,7 +70,7 @@ function Winner(props: {out: 1 | 2 | 3, shape: "x" | "o"}) {
         >
             <div className="buttons">
               <div className={styles.button} onClick={joinQueue}>NEW GAME</div>
-              <div className={styles.button}>MENU</div>
+              <div className={styles.button} onClick={goToMenu}>MENU</div>
             </div>
         </motion.div>
       </motion.div>
