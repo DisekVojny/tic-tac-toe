@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Button from "./components/Button";
 import Square from "./components/Square";
+import Confetti from "./components/Confetti";
 
 function App() {
     const [squares, setSquares] = useState(Array(9).fill(""));
@@ -63,6 +64,9 @@ function App() {
     };
 
     return (
+        <>
+        {winner && winner !== "x | o" && <Confetti/>}
+        
         <div className="tic-tac-toe">
             <h1> TIC-TAC-TOE </h1>
             <Button resetGame={resetGame} />
@@ -130,6 +134,7 @@ function App() {
                                 ) : (
                                     <>
                                         <Square clsName={winner} />
+                                        
                                     </>
                                 )}
                             </motion.div>
@@ -147,6 +152,7 @@ function App() {
                 )}
             </AnimatePresence>
         </div>
+        </>
     );
 }
 
