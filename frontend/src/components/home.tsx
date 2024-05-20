@@ -1,12 +1,13 @@
 import { Accessor } from "solid-js";
+import { joinQueue } from "../api";
 import styles from "./home.module.scss";
 
-type Props = {
-  transition: Accessor<boolean>;
-} 
 
-export default function Home({ transition }: Props) {
+export default function Home() {
   return (
-    <></>
+    <>
+      Join Queue:
+      <button onClick={() => joinQueue()}>Join</button>
+    </>
   );
 }

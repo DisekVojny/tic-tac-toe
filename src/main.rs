@@ -1,3 +1,5 @@
+#![feature(let_chains)]
+
 use socket::Player;
 
 use std::{io, env};

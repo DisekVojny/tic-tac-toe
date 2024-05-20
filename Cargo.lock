@@ -1144,8 +1144,7 @@ dependencies = [
  "futures-util",
  "log",
  "pretty_env_logger",
- "serde",
- "serde_json",
+ "rand",
  "tokio",
 ]
 

@@ -11,7 +11,7 @@ export enum GameState {
 }
 
 type SocketMessage
-  = { type: "GameStart", payload: boolean }
+  = { type: "GameStart", payload: boolean } // True if player is X; false if player is O
   | { type: "OpponentMove", payload: number }
   | { type: "OpponentForfeit" };
 
@@ -19,6 +19,7 @@ export const [ gameState, setGameState ] = createSignal(GameState.MENU);
 export const [ board, setBoard ] = createSignal([0, 0, 0, 0, 0, 0, 0, 0, 0]);
 export const [ player, setPlayer ] = createSignal(0); // 0 = O, 1 = X
 export const [ hasWon, setHasWon ] = createSignal<boolean | null>(null);
+
 
 let socket: WebSocket | null = null;
 export async function joinQueue() {
@@ -66,25 +67,4 @@ export function place(field: number) {
   
   setBoard(newBoard);
   socket?.send(JSON.stringify({ type: "Move", payload: field }));
-}
-
-export function useGameState() {
-  const [ transition, setTransition ] = createSignal(false);
-  let timeout: number | null = null;
-
-  return {
-    transition,
-    gameState,
-    setGameState: (state: GameState) => {
-      if (gameState() === state) return;
-
-      if (timeout) clearTimeout(timeout);
-      setTransition(true);
-
-      timeout = setTimeout(() => {
-        setGameState(state);
-        setTransition(false);
-      }, 500);
-    }
-  };
 }
