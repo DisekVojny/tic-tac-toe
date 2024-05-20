@@ -24,7 +24,7 @@ export enum GameState {
 }
 
 type SocketMessage
-  = { type: "GameStart", payload: boolean } // True if player is X; false if player is O
+  = { type: "GameStart", starting: boolean } // True if player is X; false if player is O
   | { type: "OpponentMove", payload: number }
   | { type: "OpponentForfeit" };
 
@@ -32,7 +32,7 @@ let socket: WebSocket | null = null;
 let gameState: GameState = GameState.MENU;
 let gameBoard: number[] = Array(9).fill(0);
 let player: boolean | null = null; // True for X, false for O
-let round: boolean | null = null; // True for player's turn, false for opponent's turn
+let turn: boolean | null = null; // True for player's turn, false for opponent's turn
 
 export async function joinQueue() {
   socket = new WebSocket(`${API}/queue`);
@@ -44,19 +44,20 @@ export async function joinQueue() {
   
     switch (message.type) {
       case "GameStart":
-        player = message.payload;
-        round = player;
+        player = message.starting;
+        turn = player;
         gameState = GameState.PLAYING;
         notify("gameState");
         break;
       case "OpponentMove":
         gameBoard[message.payload] = player ? 2 : 1;
-        round = true;
+        turn = true;
         notify("gameBoard");
         break;
       case "OpponentForfeit":
         gameState = GameState.MENU;
-        notify("gameState");
+        gameBoard = Array(9).fill(0);
+        notify("gameState", "gameBoard");
         break;
     }
   }
@@ -74,12 +75,12 @@ export async function leaveQueue() {
 }
 
 export function makeMove(index: number) {
-  if (gameState !== GameState.PLAYING || !round || gameBoard[index] !== 0) {
+  if (gameState !== GameState.PLAYING || !turn || gameBoard[index] !== 0) {
     return;
   }
 
   gameBoard[index] = player ? 1 : 2;
-  round = false;
+  turn = false;
   notify("gameBoard");
 
   socket?.send(index.toString());
@@ -117,5 +118,5 @@ export function useGameBoard() {
     return () => unsubscribe("gameBoard", id.current);
   });
 
-  return [ gameBoard ] as const;
+  return [ gameBoard, player, turn ] as const;
 }

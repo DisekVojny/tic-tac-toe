@@ -1,7 +1,7 @@
 import { useGameState, GameState } from "./api";
 
 import Loading from "./components/Loading/Loading";
-import Game from "./components/Game/game";
+import Game from './components/Game/game';
 import Menu from "./components/Menu/Menu";
 
 
@@ -14,6 +14,7 @@ export default function App() {
       {gameState === GameState.MENU && <Menu/>}
       {gameState === GameState.QUEUE && <Loading/>}
       {gameState === GameState.PLAYING && <Game/>}
+      {/* <Game/> */}
     </div>
   );
 }
