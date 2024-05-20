@@ -13,7 +13,7 @@ export default function App() {
     <div className="app">
       {gameState === GameState.MENU && <Menu/>}
       {gameState === GameState.QUEUE && <Loading/>}
-      {gameState === GameState.PLAYING && <></>}
+      {gameState === GameState.PLAYING && <Game/>}
     </div>
   );
 }
