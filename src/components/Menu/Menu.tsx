@@ -1,6 +1,8 @@
 import { joinQueue } from "../../api";
 import styles from "./Menu.module.scss"
 import icon from "/icon.png"
+import { ImGithub } from "react-icons/im";
+
 
 function Menu() {
   return ( 
@@ -13,7 +15,7 @@ function Menu() {
         <img src={icon} />
       </div>
       <div className={styles.credits}>
-        Made by: <a href="https://github.com/DisekVojny/" target="_blank">Aleksander Hryckiewicz</a> & <a href="https://github.com/0x7030676e31/" target="_blank">Tobiasz Chemielewski</a> 2P
+        Made by: <a href="https://github.com/DisekVojny/" target="_blank"><ImGithub /> Aleksander Hryckiewicz</a> & <a href="https://github.com/0x7030676e31/" target="_blank"><ImGithub /> Tobiasz Chemielewski</a> 2P
       </div>
     </div>
    );

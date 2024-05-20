@@ -92,11 +92,23 @@
 }
 
 
-.credits{
+.credits {
   color: $mauve;
   font-size: 24px;
 
-  a{
+  a {
     color: $subtext1;
+    text-decoration: none;
+    transition: border-bottom 0.2s ease-in;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      border-bottom: 2px solid $subtext1;
+    }
   }
+}
+
+
+.logo img{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
