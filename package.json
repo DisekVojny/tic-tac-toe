@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/react-icons": "^3.0.0",
     "@types/sass": "^1.45.0",
+    "framer-motion": "^11.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
