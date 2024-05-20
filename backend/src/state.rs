@@ -92,3 +92,15 @@ impl Handler<Disconnect> for State {
     self.handle_disconnect(msg.0);
   }
 }
+
+impl Handler<Move> for State {
+  type Result = ();
+
+  fn handle(&mut self, msg: Move, _: &mut Self::Context) {
+    let game = self.games.iter_mut().find(|game| game.player_1.0 == msg.0 || game.player_2.0 == msg.0);
+    if let Some(game) = game {
+      let other: &(u16, Recipient<Message>) = if game.player_1.0 == msg.0 { &game.player_2 } else { &game.player_1 };
+      other.1.do_send(Message(format!(r#"{{"type":"OpponentMove","payload":{}}}"#, msg.1)));
+    }
+  }
+}

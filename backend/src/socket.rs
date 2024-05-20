@@ -92,7 +92,10 @@ impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for Player {
       ws::Message::Pong(_) => {
         self.last_heartbeat = Instant::now();
       },
-      ws::Message::Text(text) => self.addr.do_send(Message(text.trim().to_string())),
+      ws::Message::Text(text) => {
+        let idx = text.parse::<u8>().unwrap_or(0);
+        self.addr.do_send(Move (self.id, idx));
+      }
       ws::Message::Binary(bin) => ctx.binary(bin),
       ws::Message::Close(reason) => {
         log::info!("Closing the connection: {:?}", reason);
