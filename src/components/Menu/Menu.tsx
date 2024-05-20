@@ -7,7 +7,10 @@ import { ImGithub } from "react-icons/im";
 function Menu() {
   return ( 
     <div className={styles.wrapper}>
-      <div className={styles.title}>TIC TAC TOE</div>
+      <div className={styles.title}>
+        <p className={styles.main}>TIC TAC TOE</p>
+        <p className={styles.sub}>MULTIPLAYER!</p>
+      </div>
       <div className={styles.join}>
         <div className={styles.button} onClick={joinQueue}>JOIN GAME</div>
       </div>

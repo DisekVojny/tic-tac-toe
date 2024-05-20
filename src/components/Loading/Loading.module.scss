@@ -50,6 +50,11 @@ $scale: 4;
   border-bottom: 1px solid transparent;
   cursor: pointer;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 5px;
 }
 
 .cancel:hover {

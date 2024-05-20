@@ -1,9 +1,33 @@
 @import "../../palette.scss";
 
 .title{
-  font-size: 64px;
-  color: whitesmoke;
-  font-weight: 800;
+  position: relative;
+
+  .main {
+    font-size: 64px;
+    color: whitesmoke;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .sub {
+    color: darken(whitesmoke, 20%);
+    font-weight: 400;
+    font-size: 20px;
+    position: absolute;
+    right: 0;
+    top: 70%;
+    animation: anim 0.7s infinite alternate ease-in-out;
+  }
+}
+
+@keyframes anim {
+  0% {
+    transform: translateX(50%) rotate(-20deg) scale(1);
+  }
+  100% {
+    transform: translateX(50%) rotate(-20deg) scale(1.1);
+  }
 }
 
 .wrapper{
@@ -98,7 +122,7 @@
   a {
     color: $subtext1;
     text-decoration: none;
-    transition: border-bottom 0.2s ease-in;
+    transition: border-bottom 0.2s cubic-bezier(0.0, 0.0, 0.2, 1);
     border-bottom: 2px solid transparent;
 
     &:hover {
