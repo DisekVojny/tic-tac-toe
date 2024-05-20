@@ -38,6 +38,8 @@ export async function joinQueue() {
   socket = new WebSocket(`${API}/queue`);
   gameState = GameState.QUEUE;
   notify("gameState");
+
+  socket.onmessage = event => {}
 }
 
 export async function leaveQueue() {}
