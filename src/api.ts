@@ -33,12 +33,14 @@ let gameState: GameState = GameState.MENU;
 let gameBoard: number[] = Array(9).fill(0);
 let player: boolean | null = null; // True for X, false for O
 let turn: boolean | null = null; // True for player's turn, false for opponent's turn
+let hasEnemyForfeited: boolean = false;
 
 export async function joinQueue() {
   socket = new WebSocket(`${API}/queue`);
   gameState = GameState.QUEUE;
-  notify("gameState");
+  hasEnemyForfeited = false;
 
+  notify("gameState", "enemyForfeit");
   socket.onmessage = event => {
     const message = JSON.parse(event.data) as SocketMessage;
   
@@ -49,15 +51,16 @@ export async function joinQueue() {
         gameState = GameState.PLAYING;
         notify("gameState");
         break;
+
       case "OpponentMove":
         gameBoard[message.payload] = player ? 2 : 1;
         turn = true;
         notify("gameBoard");
         break;
+
       case "OpponentForfeit":
-        gameState = GameState.MENU;
-        gameBoard = Array(9).fill(0);
-        notify("gameState", "gameBoard");
+        hasEnemyForfeited = true;
+        notify("enemyForfeit");
         break;
     }
   }
@@ -89,6 +92,10 @@ export function makeMove(index: number) {
 export function closeConnection() {
   socket?.close();
   socket = null;
+}
+
+export function goToMenu() {
+  closeConnection();
   gameState = GameState.MENU;
   notify("gameState");
 }
@@ -119,4 +126,18 @@ export function useGameBoard() {
   });
 
   return [ gameBoard, player, turn ] as const;
+}
+
+export function useEnemyForfeit() {
+  const [ _, update ] = useState(0);
+  const refresh = () => update(x => x + 1);
+
+  const id = useRef(Date.now().toString());
+
+  useEffect(() => {
+    subscribe("enemyForfeit", id.current, refresh);
+    return () => unsubscribe("enemyForfeit", id.current);
+  });
+
+  return [ hasEnemyForfeited ] as const;
 }

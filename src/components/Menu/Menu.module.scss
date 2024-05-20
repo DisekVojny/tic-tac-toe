@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/minecraft-4');
 @import "../../palette.scss";
 
 .title{
@@ -18,6 +19,7 @@
     right: 0;
     top: 70%;
     animation: anim 0.7s infinite alternate ease-in-out;
+    font-family: 'Minecraft', sans-serif;
   }
 }
 

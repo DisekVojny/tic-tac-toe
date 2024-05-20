@@ -15,13 +15,13 @@ function Menu() {
         <div className={styles.button} onClick={joinQueue}>JOIN GAME</div>
       </div>
       <div className={styles.logo}>
-        <img src={icon} />
+        <img src={icon} alt="icon" />
       </div>
       <div className={styles.credits}>
-        Made by: <a href="https://github.com/DisekVojny/" target="_blank"><ImGithub /> Aleksander Hryckiewicz</a> & <a href="https://github.com/0x7030676e31/" target="_blank"><ImGithub /> Tobiasz Chemielewski</a> 2P
+        Made by: <a style={{ marginLeft: "5px" }} href="https://github.com/DisekVojny/" target="_blank"><ImGithub /> Aleksander Hryckiewicz</a> & <a href="https://github.com/0x7030676e31/" target="_blank"><ImGithub /> Tobiasz Chemielewski</a> 2P
       </div>
     </div>
-   );
+  );
 }
 
 export default Menu;
