@@ -39,10 +39,51 @@ export async function joinQueue() {
   gameState = GameState.QUEUE;
   notify("gameState");
 
-  socket.onmessage = event => {}
+  socket.onmessage = event => {
+    const message = JSON.parse(event.data) as SocketMessage;
+  
+    switch (message.type) {
+      case "GameStart":
+        player = message.payload;
+        round = player;
+        gameState = GameState.PLAYING;
+        notify("gameState");
+        break;
+      case "OpponentMove":
+        gameBoard[message.payload] = player ? 2 : 1;
+        round = true;
+        notify("gameBoard");
+        break;
+      case "OpponentForfeit":
+        gameState = GameState.MENU;
+        notify("gameState");
+        break;
+    }
+  }
 }
 
-export async function leaveQueue() {}
+export async function leaveQueue() {
+  if (gameState !== GameState.QUEUE) {
+    return;
+  }
+
+  socket?.close();
+  socket = null;
+  gameState = GameState.MENU;
+  notify("gameState");
+}
+
+export function makeMove(index: number) {
+  if (gameState !== GameState.PLAYING || !round || gameBoard[index] !== 0) {
+    return;
+  }
+
+  gameBoard[index] = player ? 1 : 2;
+  round = false;
+  notify("gameBoard");
+
+  socket?.send(JSON.stringify({ type: "Move", payload: index }));
+}
 
 export function useGameState() {
   const [ _, update ] = useState(0);
