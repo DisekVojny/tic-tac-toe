@@ -1,15 +1,16 @@
 import { useGameState, GameState } from "./api";
-import React from "react";
+
+import Game from "./components/Game/game";
 
 export default function App() {
   const [ gameState ] = useGameState();
 
   return (
-    <>
+    <div className="app">
       {gameState === GameState.MENU && <></>}
       {gameState === GameState.QUEUE && <></>}
       {gameState === GameState.PLAYING && <></>}
-    </>
+    </div>
   );
 }
 
