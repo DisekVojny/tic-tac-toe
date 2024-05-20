@@ -1,7 +1,7 @@
 import { useGameState, GameState } from "./api";
-import React from "react";
-import Loading from "./components/Loading/Loading";
 
+import Loading from "./components/Loading/Loading";
+import Game from "./components/Game/game";
 
 export default function App() {
   const [ gameState ] = useGameState();
