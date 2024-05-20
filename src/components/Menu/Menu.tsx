@@ -1,3 +1,4 @@
+import { joinQueue } from "../../api";
 import styles from "./Menu.module.scss"
 import icon from "/icon.png"
 
@@ -6,7 +7,7 @@ function Menu() {
     <div className={styles.wrapper}>
       <div className={styles.title}>TIC TAC TOE</div>
       <div className={styles.join}>
-        <div className={styles.button}>JOIN GAME</div>
+        <div className={styles.button} onClick={joinQueue}>JOIN GAME</div>
       </div>
       <div className={styles.logo}>
         <img src={icon} />
