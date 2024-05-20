@@ -7,12 +7,12 @@ export default function App() {
   // const [ gameState ] = useGameState();
 
   return (
-    <>
+    <div className="app">
       <Loading></Loading>
       {/* {gameState === GameState.MENU && <></>}
       {gameState === GameState.QUEUE && <></>}
       {gameState === GameState.PLAYING && <></>} */}
-    </>
+    </div>
   );
 }
 
