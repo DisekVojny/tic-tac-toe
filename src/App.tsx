@@ -4,14 +4,13 @@ import Loading from "./components/Loading/Loading";
 
 
 export default function App() {
-  // const [ gameState ] = useGameState();
+  const [ gameState ] = useGameState();
 
   return (
     <div className="app">
-      <Loading></Loading>
-      {/* {gameState === GameState.MENU && <></>}
-      {gameState === GameState.QUEUE && <></>}
-      {gameState === GameState.PLAYING && <></>} */}
+      {gameState === GameState.MENU && <></>}
+      {gameState === GameState.QUEUE && <Loading/>}
+      {gameState === GameState.PLAYING && <></>}
     </div>
   );
 }
