@@ -93,6 +93,11 @@ impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for Player {
         self.last_heartbeat = Instant::now();
       },
       ws::Message::Text(text) => {
+        if text == "terminate" {
+          self.addr.do_send(Terminate (self.id));
+          return;
+        }
+
         let idx = text.parse::<u8>().unwrap_or(0);
         self.addr.do_send(Move (self.id, idx));
       }
@@ -111,6 +116,9 @@ impl Handler<Message> for Player {
   type Result = ();
 
   fn handle(&mut self, msg: Message, ctx: &mut Self::Context) {
-    ctx.text(msg.0);
+    match msg {
+      Message::Text(text) => ctx.text(text),
+      Message::Terminate => ctx.stop(),
+    }
   }
 }

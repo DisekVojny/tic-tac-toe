@@ -100,6 +100,10 @@ export function goToMenu() {
   notify("gameState");
 }
 
+export function terminate() {
+  socket?.send("terminate");
+}
+
 export function useGameState() {
   const [ _, update ] = useState(0);
   const refresh = () => update(x => x + 1);

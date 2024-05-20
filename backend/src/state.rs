@@ -28,7 +28,7 @@ impl State {
     if let Some(idx) = idx {
       let game = self.games.remove(idx);
       let other = if game.player_1.0 == id { game.player_2 } else { game.player_1 };
-      other.1.do_send(Message(r#"{"type":"OpponentForfeit"}"#.to_string()));
+      other.1.do_send(Message::Text(r#"{"type":"OpponentForfeit"}"#.to_string()));
     }
   }
 
@@ -48,10 +48,10 @@ impl State {
     let starting = if random { p1.0 } else { p2.0 };
     
     let payload = format!(r#"{{"type":"GameStart","starting":{}}}"#, if starting == p1.0 { "true" } else { "false" });
-    p1.1.do_send(Message(payload));
+    p1.1.do_send(Message::Text(payload));
 
     let payload = format!(r#"{{"type":"GameStart","starting":{}}}"#, if starting == p2.0 { "true" } else { "false" });
-    p2.1.do_send(Message(payload));
+    p2.1.do_send(Message::Text(payload));
 
     let game = Game {
       player_1: p1,
@@ -60,18 +60,19 @@ impl State {
 
     self.games.push(game);
   }
+
+  fn terminate(&mut self, id: u16) {
+    let idx = self.games.iter().position(|game| game.player_1.0 == id || game.player_2.0 == id);
+    if let Some(idx) = idx {
+      let game = self.games.remove(idx);
+      game.player_1.1.do_send(Message::Terminate);
+      game.player_2.1.do_send(Message::Terminate);
+    }
+  }
 }
 
 impl Actor for State {
   type Context = Context<Self>;
-}
-
-impl Handler<Message> for State {
-  type Result = ();
-
-  fn handle(&mut self, msg: Message, _: &mut Self::Context) {
-    log::info!("Message: {}", msg.0);
-  }
 }
 
 impl Handler<Connect> for State {
@@ -100,7 +101,15 @@ impl Handler<Move> for State {
     let game = self.games.iter_mut().find(|game| game.player_1.0 == msg.0 || game.player_2.0 == msg.0);
     if let Some(game) = game {
       let other: &(u16, Recipient<Message>) = if game.player_1.0 == msg.0 { &game.player_2 } else { &game.player_1 };
-      other.1.do_send(Message(format!(r#"{{"type":"OpponentMove","payload":{}}}"#, msg.1)));
+      other.1.do_send(Message::Text(format!(r#"{{"type":"OpponentMove","payload":{}}}"#, msg.1)));
     }
+  }
+}
+
+impl Handler<Terminate> for State {
+  type Result = ();
+
+  fn handle(&mut self, msg: Terminate, _: &mut Self::Context) {
+    self.terminate(msg.0);
   }
 }

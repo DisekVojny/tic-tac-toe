@@ -8,10 +8,13 @@ export default function App() {
   const [ gameState ] = useGameState();
 
   return (
-    <div className="app">
-      {gameState === GameState.MENU && <Menu/>}
-      {gameState === GameState.QUEUE && <Loading/>}
-      {gameState === GameState.PLAYING && <Game/>}
-    </div>
+    <>
+      <div className="app">
+        {gameState === GameState.MENU && <Menu/>}
+        {gameState === GameState.QUEUE && <Loading/>}
+        {gameState === GameState.PLAYING && <Game/>}
+      </div>
+      <div className="timeoutdz" />
+    </>
   );
 }
