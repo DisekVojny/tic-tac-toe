@@ -41,3 +41,18 @@ $scale: 4;
   justify-content: center;
   align-items: center;
 }
+
+.cancel {
+  margin-top: 50px;
+  font-size: 24px;
+  color: $subtext1;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cancel:hover {
+  color: white;
+  border-bottom: 1px solid $subtext1;
+}

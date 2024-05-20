@@ -1,7 +1,9 @@
 import { useGameState, GameState } from "./api";
-import React from "react";
+
 import Loading from "./components/Loading/Loading";
+import Game from "./components/Game/game";
 import Menu from "./components/Menu/Menu";
+
 
 
 export default function App() {
@@ -9,10 +11,9 @@ export default function App() {
 
   return (
     <div className="app">
-      <Menu/>
-      {/* {gameState === GameState.MENU && <></>}
+      {gameState === GameState.MENU && <Menu/>}
       {gameState === GameState.QUEUE && <Loading/>}
-      {gameState === GameState.PLAYING && <></>} */}
+      {gameState === GameState.PLAYING && <></>}
     </div>
   );
 }

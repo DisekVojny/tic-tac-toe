@@ -87,6 +87,9 @@ export function makeMove(index: number) {
 
 export function closeConnection() {
   socket?.close();
+  socket = null;
+  gameState = GameState.MENU;
+  notify("gameState");
 }
 
 export function useGameState() {
