@@ -1,14 +1,10 @@
-import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import Button from "./components/Button";
-import Square from "./components/Square";
-import Confetti from "./components/Confetti";
-
 import { useGameState, GameState } from "./api";
+import React from "react";
 import Loading from "./components/Loading/Loading";
+
+
 export default function App() {
-  const [ gameState ] = useGameState();
+  // const [ gameState ] = useGameState();
 
   return (
     <>
@@ -19,6 +15,13 @@ export default function App() {
     </>
   );
 }
+
+
+// import { motion, AnimatePresence } from "framer-motion";
+// import { useState } from "react";
+// import Button from "./components/Button";
+// import Square from "./components/Square";
+// import Confetti from "./components/Confetti";
 
 // function App() {
 //     const [squares, setSquares] = useState(Array(9).fill(""));

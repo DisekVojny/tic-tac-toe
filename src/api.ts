@@ -82,7 +82,11 @@ export function makeMove(index: number) {
   round = false;
   notify("gameBoard");
 
-  socket?.send(JSON.stringify({ type: "Move", payload: index }));
+  socket?.send(index.toString());
+}
+
+export function closeConnection() {
+  socket?.close();
 }
 
 export function useGameState() {
@@ -97,4 +101,18 @@ export function useGameState() {
   });
 
   return [ gameState ] as const;
+}
+
+export function useGameBoard() {
+  const [ _, update ] = useState(0);
+  const refresh = () => update(x => x + 1);
+
+  const id = useRef(Date.now().toString());
+
+  useEffect(() => {
+    subscribe("gameBoard", id.current, refresh);
+    return () => unsubscribe("gameBoard", id.current);
+  });
+
+  return [ gameBoard ] as const;
 }
