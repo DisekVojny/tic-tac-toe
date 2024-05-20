@@ -27,7 +27,7 @@ $scale: 4;
   animation-delay: 1s;
 }
 .loader:after{
-  left: calc($scale * -40px);
+  left: calc($scale * -36px);
   animation-delay: 0s;
 }
 @keyframes l6 {
