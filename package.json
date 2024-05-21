@@ -14,7 +14,9 @@
     "@types/sass": "^1.45.0",
     "framer-motion": "^11.2.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-confetti": "^6.1.0",
+    "react-dom": "^18.2.0",
+    "react-use": "^17.5.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

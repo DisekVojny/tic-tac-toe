@@ -1,14 +1,20 @@
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Winner.module.scss"
 import { goToMenu, joinQueue } from "../../api";
-
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
 
 // 1 WIN
 // 2 DEFEAT
 // 3 DRAW
 
 function Winner(props: {out: 1 | 2 | 3, shape: "x" | "o"}) {
+  const { width, height } = useWindowSize()
   return ( <>
+  {props.out === 1 && <Confetti
+      width={width}
+      height={height}
+  />}
   
   <AnimatePresence>
     <motion.div

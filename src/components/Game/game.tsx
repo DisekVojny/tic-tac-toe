@@ -3,6 +3,7 @@ import styles from "./game.module.scss";
 
 export default function Game() {
   const [ gameBoard, player, turn ] = useGameBoard();
+  console.log(gameBoard)
 
   return (
     <div className={`${styles.game} ${turn ? styles.xturn : ""}`}>
