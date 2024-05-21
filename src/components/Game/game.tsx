@@ -1,9 +1,20 @@
 import { makeMove, useGameBoard } from "../../api";
+import Winner from "../Winner/Winner";
+import checkWinner from "./checkWinner";
 import styles from "./game.module.scss";
+
 
 export default function Game() {
   const [ gameBoard, player, turn ] = useGameBoard();
-  console.log(gameBoard)
+  console.log(checkWinner(player, gameBoard));
+  console.log(gameBoard);
+
+  
+  if(checkWinner(player, gameBoard) !== null){
+    return (
+      <Winner out={checkWinner(player, gameBoard) as any} shape={player ? "x" : "o"}/>
+    )
+  }
 
   return (
     <div className={`${styles.game} ${turn ? styles.xturn : ""}`}>

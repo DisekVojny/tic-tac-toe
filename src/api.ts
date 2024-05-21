@@ -39,7 +39,6 @@ export async function joinQueue() {
   socket = new WebSocket(`${API}/queue`);
   gameState = GameState.QUEUE;
   hasEnemyForfeited = false;
-
   notify("gameState", "enemyForfeit");
   socket.onmessage = event => {
     const message = JSON.parse(event.data) as SocketMessage;
